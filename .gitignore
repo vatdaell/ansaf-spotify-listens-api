@@ -32,8 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-*.properties
-
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 

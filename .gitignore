@@ -193,3 +193,7 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+.mvn/
+mvnw
+mvnw.cmd

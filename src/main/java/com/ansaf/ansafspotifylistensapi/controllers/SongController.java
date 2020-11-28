@@ -28,11 +28,7 @@ public class SongController {
     @GetMapping(path="/track/{track}")
     public  @ResponseBody
     List<Song> findByTrack(@PathVariable String track){
-        Optional<List<Song>> listOfSongs = songsRepository.findByTrack(track);
-        if(listOfSongs.isEmpty()){
-            return new ArrayList<Song>();
-        }
-        return listOfSongs.get();
+        return songsRepository.findByTrack(track);
     }
 
     @GetMapping("/{id}")

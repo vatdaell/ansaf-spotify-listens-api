@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface SongsRepository extends JpaRepository<Song, Integer>, JpaSpecificationExecutor<Song> {
-    Optional<List<Song>> findByTrack(String track);
+    List<Song> findByTrack(String track);
     Optional<Song> findBySpotifyTrackId(String id);
 }

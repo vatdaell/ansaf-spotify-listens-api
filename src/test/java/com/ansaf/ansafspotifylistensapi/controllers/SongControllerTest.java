@@ -1,4 +1,4 @@
-package com.ansaf.ansafspotifylistensapi;
+package com.ansaf.ansafspotifylistensapi.controllers;
 
 import com.ansaf.ansafspotifylistensapi.controllers.SongController;
 import com.ansaf.ansafspotifylistensapi.models.Song;
@@ -85,5 +85,13 @@ public class SongControllerTest {
                 .andExpect(jsonPath("$.liveness").value(0.1f))
                 .andExpect(jsonPath("$.valence").value(0.1f))
                 .andExpect(jsonPath("$.tempo").value(0.1f));
+    }
+
+    @Test
+    void shouldReturnByTrack() throws Exception{
+        given(songsRepository.findByTrack(any())).willReturn(songs);
+        this.mockMvc.perform(get("/songs/track/${track}","track"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()",is(songs.size())));
     }
 }

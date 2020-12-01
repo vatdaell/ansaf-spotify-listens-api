@@ -35,7 +35,7 @@ public class SongControllerTest {
 
     @BeforeEach
     void setUp(){
-        this.songs = new ArrayList<Song>();
+        this.songs = new ArrayList<>();
         this.songs.add(new Song());
         this.song = new Song(1, "trackid", "track", "artist", "album", 1000,
                 50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,

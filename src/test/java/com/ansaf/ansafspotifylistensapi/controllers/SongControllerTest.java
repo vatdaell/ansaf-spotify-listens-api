@@ -2,6 +2,8 @@ package com.ansaf.ansafspotifylistensapi.controllers;
 
 import com.ansaf.ansafspotifylistensapi.models.Song;
 import com.ansaf.ansafspotifylistensapi.repositories.SongsRepository;
+import org.junit.Rule;
+import org.junit.contrib.java.lang.system.EnvironmentVariables;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,7 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -35,6 +35,9 @@ public class SongControllerTest {
     private List<Song> songs;
     private Song song;
 
+    @Rule
+    public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
+
     @BeforeEach
     void setUp(){
         this.songs = new ArrayList<>();
@@ -42,7 +45,7 @@ public class SongControllerTest {
         this.song = new Song(1, "trackid", "track", "artist", "album", 1000,
                 50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
                 1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
-        System.setProperty("BASE_URL","http://baseurl.com");
+        environmentVariables.set("BASE_URL", "http://testurl.com");
 
     }
 

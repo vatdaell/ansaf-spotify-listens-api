@@ -1,11 +1,21 @@
 package com.ansaf.ansafspotifylistensapi.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Version;
 import java.io.Serializable;
 
 public class TrackResponse implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(notes = "Song Model is returned")
     private Song song;
+
+    @Version
+    @ApiModelProperty(notes = "Model Version")
     private String version;
+
+    @ApiModelProperty(notes = "Url of endpoint")
     private String url;
 
     public TrackResponse(String version, String url, Song song){

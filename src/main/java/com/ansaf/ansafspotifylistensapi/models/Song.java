@@ -1,5 +1,8 @@
 package com.ansaf.ansafspotifylistensapi.models;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,12 +12,95 @@ public class Song implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    @ApiModelProperty(notes = "The database generated song ID")
+    private int id;
+
+    @Column(name = "spotify_track_id", nullable = false)
+    @ApiModelProperty(notes = "The spotify generated track ID")
+    private String spotifyTrackId;
+
+    @Column(name = "track", nullable = false)
+    @ApiModelProperty(notes = "The song name")
+    private String track;
+
+    @Column(name = "artist", nullable = false)
+    @ApiModelProperty(notes = "The artist name")
+    private String artist;
+
+    @Column(name = "album", nullable = false)
+    @ApiModelProperty(notes = "The album name")
+    private String album;
+
+    @Column(name = "duration", nullable = false)
+    @ApiModelProperty(notes = "Duration of song in milliseconds")
+    private int duration;
+
+    @Column(name = "popularity", nullable = false)
+    @ApiModelProperty(notes = "Popularity of the song out of 100")
+    private int popularity;
+
+    @Column(name = "explicit", nullable = false)
+    @ApiModelProperty(notes = "Label for explicit song, 1 means explicit")
+    private int explicit;
+
+    @Column(name = "lyrics")
+    @ApiModelProperty(notes = "Lyrics of song")
+    private String lyrics;
+
+    @Column(name = "danceability", nullable = false)
+    @ApiModelProperty(notes = "Describes how suitable a track is for dancing")
+    private float danceability;
+
+    @Column(name = "energy", nullable = false)
+    @ApiModelProperty(notes = "Energy is a measure of intensity in the music")
+    private float energy;
+
+    @Column(name = "majority_key", nullable = false)
+    @ApiModelProperty(notes = "The key the track is in. Integers map to pitches using standard Pitch Class")
+    private float majorityKey;
+
+    @Column(name = "loudness", nullable = false)
+    @ApiModelProperty(notes = "The overall loudness of a track in decibels (dB)")
+    private float loudness;
+
+    @Column(name = "mode", nullable = false)
+    @ApiModelProperty(notes = "Mode indicates the modality (major or minor) of a track")
+    private float mode;
+
+    @Column(name = "speechiness", nullable = false)
+    @ApiModelProperty(notes = "Speechiness detects the presence of spoken words in a track")
+    private float speechiness;
+
+    @Column(name = "acousticness", nullable = false)
+    @ApiModelProperty(notes = "A confidence measure of whether the track is acoustic")
+    private float acousticness;
+
+    @Column(name = "instrumentalness", nullable = false)
+    @ApiModelProperty(notes = "Predicts whether a track contains no vocals")
+    private float instrumentalness;
+
+    @Column(name = "liveness", nullable = false)
+    @ApiModelProperty(notes = "Detects the presence of an audience in the recording")
+    private float liveness;
+
+    @Column(name = "valence", nullable = false)
+    @ApiModelProperty(notes = "A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track")
+    private float valence;
+
+    @Column(name = "tempo", nullable = false)
+    @ApiModelProperty(notes = "The overall estimated tempo of a track in beats per minute (BPM)")
+    private float tempo;
+
     public Song(){}
 
     public Song(Integer id, String spotifyTrackId, String track, String artist, String album, Integer duration,
                 Integer popularity, Integer explicit, String lyrics, Float danceability, Float energy,
                 Float majorityKey, Float loudness, Float mode, Float speechiness, Float acousticness,
                 Float instrumentalness, Float liveness, Float valence, Float tempo) {
+
         this.id = id;
         this.spotifyTrackId = spotifyTrackId;
         this.track = track;
@@ -36,68 +122,6 @@ public class Song implements Serializable {
         this.valence = valence;
         this.tempo = tempo;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private int id;
-
-    @Column(name = "spotify_track_id", nullable = false)
-    private String spotifyTrackId;
-
-    @Column(name = "track", nullable = false)
-    private String track;
-
-    @Column(name = "artist", nullable = false)
-    private String artist;
-
-    @Column(name = "album", nullable = false)
-    private String album;
-
-    @Column(name = "duration", nullable = false)
-    private int duration;
-
-    @Column(name = "popularity", nullable = false)
-    private int popularity;
-
-    @Column(name = "explicit", nullable = false)
-    private int explicit;
-
-    @Column(name = "lyrics")
-    private String lyrics;
-
-    @Column(name = "danceability", nullable = false)
-    private float danceability;
-
-    @Column(name = "energy", nullable = false)
-    private float energy;
-
-    @Column(name = "majority_key", nullable = false)
-    private float majorityKey;
-
-    @Column(name = "loudness", nullable = false)
-    private float loudness;
-
-    @Column(name = "mode", nullable = false)
-    private float mode;
-
-    @Column(name = "speechiness", nullable = false)
-    private float speechiness;
-
-    @Column(name = "acousticness", nullable = false)
-    private float acousticness;
-
-    @Column(name = "instrumentalness", nullable = false)
-    private float instrumentalness;
-
-    @Column(name = "liveness", nullable = false)
-    private float liveness;
-
-    @Column(name = "valence", nullable = false)
-    private float valence;
-
-    @Column(name = "tempo", nullable = false)
-    private float tempo;
 
     public void setId(int id) {
         this.id = id;

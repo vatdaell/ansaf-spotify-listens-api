@@ -16,7 +16,9 @@ import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,6 +42,8 @@ public class SongControllerTest {
         this.song = new Song(1, "trackid", "track", "artist", "album", 1000,
                 50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
                 1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
+        System.setProperty("BASE_URL","http://baseurl.com");
+
     }
 
     @Test

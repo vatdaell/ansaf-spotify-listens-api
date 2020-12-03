@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SpringFoxConfig{
+public class SpringFoxConfig {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -23,7 +23,7 @@ public class SpringFoxConfig{
                 .apiInfo(metaData());
     }
 
-    private ApiInfo metaData(){
+    private ApiInfo metaData() {
         return new ApiInfo(
                 "Ansaf's Spotify Listening Habits",
                 "An API for accessing Ansaf's spotify library and recent listens",

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Profile;
 public class SongsRepositoryTestConfiguration {
     @Bean
     @Primary
-    public SongsRepository songsRepository(){
+    public SongsRepository songsRepository() {
         return Mockito.mock(SongsRepository.class);
     }
 }

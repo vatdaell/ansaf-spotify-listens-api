@@ -94,7 +94,8 @@ public class Song implements Serializable {
     @ApiModelProperty(notes = "The overall estimated tempo of a track in beats per minute (BPM)")
     private float tempo;
 
-    public Song(){}
+    public Song() {
+    }
 
     public Song(Integer id, String spotifyTrackId, String track, String artist, String album, Integer duration,
                 Integer popularity, Integer explicit, String lyrics, Float danceability, Float energy,

@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @RestController
 @RequestMapping(path = "/songs")
 @Api(value = "songs", tags = "Songs", description = "Operations pertaining to accessing songs from the library")
@@ -25,17 +24,16 @@ public class SongController {
     @Autowired
     private SongsRepository songsRepository;
 
-
-
     @GetMapping(produces = "application/json")
-    public @ResponseBody ResponseEntity<TracksResponse>
+    public @ResponseBody
+    ResponseEntity<TracksResponse>
     index(@RequestParam("track") Optional<String> track, @RequestParam("artist") Optional<String> artist,
-          @RequestParam("explicit") Optional<Integer> explicit){
+          @RequestParam("explicit") Optional<Integer> explicit) {
 
         List<Song> songs = filterSongs(songsRepository.findAll(), track, artist, explicit);
 
-        TracksResponse response = new TracksResponse("v1" ,
-                EnvironmentHelpers.getBaseURL() +"/songs", songs);
+        TracksResponse response = new TracksResponse("v1",
+                EnvironmentHelpers.getBaseURL() + "/songs", songs);
         return ResponseEntity.ok(response);
     }
 
@@ -47,27 +45,28 @@ public class SongController {
     }
     )
     @GetMapping(value = "/{id}", produces = "application/json")
-    public @ResponseBody ResponseEntity<TrackResponse> getTrackById(@PathVariable String id) {
+    public @ResponseBody
+    ResponseEntity<TrackResponse> getTrackById(@PathVariable String id) {
         Optional<Song> song = songsRepository.findBySpotifyTrackId(id);
-        if(song.isEmpty()) return ResponseEntity.notFound().build();
-        TrackResponse response = new TrackResponse("v1" ,
-                EnvironmentHelpers.getBaseURL() + "/songs/"+id, song.get());
+        if (song.isEmpty()) return ResponseEntity.notFound().build();
+        TrackResponse response = new TrackResponse("v1",
+                EnvironmentHelpers.getBaseURL() + "/songs/" + id, song.get());
         return ResponseEntity.ok(response);
     }
 
     private List<Song> filterSongs(List<Song> songs, Optional<String> track, Optional<String> artist,
-                                   Optional<Integer> explicit){
-        if(track.isPresent()){
+                                   Optional<Integer> explicit) {
+        if (track.isPresent()) {
             songs = songs.stream()
                     .filter(song -> song.getTrack().equalsIgnoreCase(track.get()))
                     .collect(Collectors.toList());
         }
-        if(artist.isPresent()){
+        if (artist.isPresent()) {
             songs = songs.stream()
                     .filter(song -> song.getArtist().equalsIgnoreCase(artist.get()))
                     .collect(Collectors.toList());
         }
-        if(explicit.isPresent()){
+        if (explicit.isPresent()) {
             songs = songs.stream()
                     .filter(song -> song.getExplicit() == explicit.get())
                     .collect(Collectors.toList());

@@ -17,7 +17,7 @@ public class TracksResponse implements Serializable {
     @ApiModelProperty(notes = "Url of endpoint")
     private String url;
 
-    public TracksResponse(String version, String url, List<Song> song){
+    public TracksResponse(String version, String url, List<Song> song) {
         this.version = version;
         this.url = url;
         this.songs = song;

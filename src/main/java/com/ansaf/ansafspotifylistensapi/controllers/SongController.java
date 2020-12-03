@@ -75,7 +75,7 @@ public class SongController {
     }
 
     private String getBaseURL(){
-        String baseUrl = System.getProperty("BASE_URL");
+        String baseUrl = System.getenv("BASE_URL");
         return baseUrl;
     }
 }

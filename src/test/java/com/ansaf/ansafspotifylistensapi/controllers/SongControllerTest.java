@@ -88,4 +88,72 @@ public class SongControllerTest {
                 .andExpect(jsonPath("$.version").value(notNullValue()))
                 .andExpect(jsonPath("$.url").value(notNullValue()));
     }
+
+    @Test
+    void shouldReturnTracksByName() throws Exception{
+        Song s = new Song(1, "trackid", "track", "artist", "album", 1000,
+                50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
+                1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
+        Song s1 = new Song(2, "trackid2", "track2", "artist2", "album2", 100,
+                80, 0, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
+                2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+        List<Song> songs = List.of(s,s1);
+
+        given(songsRepository.findAll()).willReturn(songs);
+
+        this.mockMvc.perform(get("/songs").param("track","track"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.songs.size()",is(1)))
+                .andExpect(jsonPath("$.songs[0].track").value("track"))
+                .andExpect(jsonPath("$.version").value(notNullValue()))
+                .andExpect(jsonPath("$.url").value(notNullValue()));
+    }
+
+    @Test
+    void shouldReturnTracksByArtist() throws Exception{
+        Song s = new Song(1, "trackid", "track", "artist", "album", 1000,
+                50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
+                1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
+        Song s1 = new Song(2, "trackid2", "track1", "artist2", "album2", 100,
+                80, 0, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
+                2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+        Song s2 = new Song(2, "trackid2", "track2", "artist", "album2", 100,
+                80, 0, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
+                2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+        List<Song> songs = List.of(s,s1,s2);
+
+        given(songsRepository.findAll()).willReturn(songs);
+
+        this.mockMvc.perform(get("/songs").param("artist","artist"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.songs.size()",is(2)))
+                .andExpect(jsonPath("$.songs[0].artist").value("artist"))
+                .andExpect(jsonPath("$.songs[1].artist").value("artist"))
+                .andExpect(jsonPath("$.version").value(notNullValue()))
+                .andExpect(jsonPath("$.url").value(notNullValue()));
+    }
+
+    @Test
+    void shouldReturnTracksByExplicit() throws Exception{
+        Song s = new Song(1, "trackid", "track", "artist", "album", 1000,
+                50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
+                1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
+        Song s1 = new Song(2, "trackid2", "track1", "artist2", "album2", 100,
+                80, 1, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
+                2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+        Song s2 = new Song(2, "trackid2", "track2", "artist", "album2", 100,
+                80, 0, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
+                2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
+        List<Song> songs = List.of(s,s1,s2);
+
+        given(songsRepository.findAll()).willReturn(songs);
+
+        this.mockMvc.perform(get("/songs").param("explicit","1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.songs.size()",is(2)))
+                .andExpect(jsonPath("$.songs[0].explicit").value(1))
+                .andExpect(jsonPath("$.songs[1].explicit").value(1))
+                .andExpect(jsonPath("$.version").value(notNullValue()))
+                .andExpect(jsonPath("$.url").value(notNullValue()));
+    }
 }

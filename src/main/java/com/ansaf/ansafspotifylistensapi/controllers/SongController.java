@@ -4,6 +4,7 @@ import com.ansaf.ansafspotifylistensapi.models.Song;
 import com.ansaf.ansafspotifylistensapi.models.TrackResponse;
 import com.ansaf.ansafspotifylistensapi.models.TracksResponse;
 import com.ansaf.ansafspotifylistensapi.repositories.SongsRepository;
+import com.ansaf.ansafspotifylistensapi.utils.EnvironmentHelpers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -15,9 +16,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
 @RestController
 @RequestMapping(path = "/songs")
-@Api(value = "songs", description = "Operations pertaining to accessing songs from the library")
+@Api(value = "songs", tags = "Songs", description = "Operations pertaining to accessing songs from the library")
 public class SongController {
 
     @Autowired
@@ -33,7 +35,7 @@ public class SongController {
         List<Song> songs = filterSongs(songsRepository.findAll(), track, artist, explicit);
 
         TracksResponse response = new TracksResponse("v1" ,
-                getBaseURL() +"/songs", songs);
+                EnvironmentHelpers.getBaseURL() +"/songs", songs);
         return ResponseEntity.ok(response);
     }
 
@@ -49,7 +51,7 @@ public class SongController {
         Optional<Song> song = songsRepository.findBySpotifyTrackId(id);
         if(song.isEmpty()) return ResponseEntity.notFound().build();
         TrackResponse response = new TrackResponse("v1" ,
-                getBaseURL() + "/songs/"+id, song.get());
+                EnvironmentHelpers.getBaseURL() + "/songs/"+id, song.get());
         return ResponseEntity.ok(response);
     }
 
@@ -72,10 +74,5 @@ public class SongController {
         }
 
         return songs;
-    }
-
-    private String getBaseURL(){
-        String baseUrl = System.getenv("BASE_URL");
-        return baseUrl;
     }
 }

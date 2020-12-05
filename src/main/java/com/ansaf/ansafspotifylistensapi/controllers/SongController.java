@@ -24,10 +24,17 @@ public class SongController {
     @Autowired
     private SongsRepository songsRepository;
 
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved song"),
+            @ApiResponse(code = 401, message = "Unauthorized, please authenticate or authenticate properly"),
+            @ApiResponse(code = 403, message = "Forbidden, the songs are not accessible"),
+            @ApiResponse(code = 404, message = "The songs do not exist")
+    })
     @GetMapping(produces = "application/json")
     public @ResponseBody
     ResponseEntity<TracksResponse>
-    index(@RequestParam("track") Optional<String> track, @RequestParam("artist") Optional<String> artist,
+    index(@RequestParam("track") Optional<String> track,
+          @RequestParam("artist") Optional<String> artist,
           @RequestParam("explicit") Optional<Integer> explicit) {
 
         List<Song> songs = filterSongs(songsRepository.findAll(), track, artist, explicit);
@@ -53,6 +60,7 @@ public class SongController {
                 EnvironmentHelpers.getBaseURL() + "/songs/" + id, song.get());
         return ResponseEntity.ok(response);
     }
+
 
     private List<Song> filterSongs(List<Song> songs, Optional<String> track, Optional<String> artist,
                                    Optional<Integer> explicit) {

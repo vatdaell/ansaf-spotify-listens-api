@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -39,7 +40,7 @@ public class SongControllerTest {
     public final EnvironmentVariables environmentVariables = new EnvironmentVariables();
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         this.songs = new ArrayList<>();
         this.songs.add(new Song());
         this.song = new Song(1, "trackid", "track", "artist", "album", 1000,
@@ -50,17 +51,17 @@ public class SongControllerTest {
     }
 
     @Test
-    void shouldReturnAllSongs() throws Exception{
+    void shouldReturnAllSongs() throws Exception {
         given(songsRepository.findAll()).willReturn(songs);
         this.mockMvc.perform(get("/songs"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.songs.size()",is(songs.size())))
+                .andExpect(jsonPath("$.songs.size()", is(songs.size())))
                 .andExpect(jsonPath("$.version").value(notNullValue()))
                 .andExpect(jsonPath("$.url").value(notNullValue()));
     }
 
     @Test
-    void shouldShow404TrackById() throws Exception{
+    void shouldShow404TrackById() throws Exception {
         given(songsRepository.findBySpotifyTrackId(any()))
                 .willReturn(Optional.empty());
         this.mockMvc.perform(get("/songs/{id}", "TestID"))
@@ -68,7 +69,7 @@ public class SongControllerTest {
     }
 
     @Test
-    void shouldReturnTrackById() throws Exception{
+    void shouldReturnTrackById() throws Exception {
         given(songsRepository.findBySpotifyTrackId(any()))
                 .willReturn(Optional.of(song));
         this.mockMvc.perform(get("/songs/{id}", "TestID"))
@@ -97,27 +98,27 @@ public class SongControllerTest {
     }
 
     @Test
-    void shouldReturnTracksByName() throws Exception{
+    void shouldReturnTracksByName() throws Exception {
         Song s = new Song(1, "trackid", "track", "artist", "album", 1000,
                 50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
                 1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
         Song s1 = new Song(2, "trackid2", "track2", "artist2", "album2", 100,
                 80, 0, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
                 2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
-        List<Song> songs = List.of(s,s1);
+        List<Song> songs = List.of(s, s1);
 
         given(songsRepository.findAll()).willReturn(songs);
 
-        this.mockMvc.perform(get("/songs").param("track","track"))
+        this.mockMvc.perform(get("/songs").param("track", "track"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.songs.size()",is(1)))
+                .andExpect(jsonPath("$.songs.size()", is(1)))
                 .andExpect(jsonPath("$.songs[0].track").value("track"))
                 .andExpect(jsonPath("$.version").value(notNullValue()))
                 .andExpect(jsonPath("$.url").value(notNullValue()));
     }
 
     @Test
-    void shouldReturnTracksByArtist() throws Exception{
+    void shouldReturnTracksByArtist() throws Exception {
         Song s = new Song(1, "trackid", "track", "artist", "album", 1000,
                 50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
                 1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
@@ -127,13 +128,13 @@ public class SongControllerTest {
         Song s2 = new Song(2, "trackid2", "track2", "artist", "album2", 100,
                 80, 0, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
                 2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
-        List<Song> songs = List.of(s,s1,s2);
+        List<Song> songs = List.of(s, s1, s2);
 
         given(songsRepository.findAll()).willReturn(songs);
 
-        this.mockMvc.perform(get("/songs").param("artist","artist"))
+        this.mockMvc.perform(get("/songs").param("artist", "artist"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.songs.size()",is(2)))
+                .andExpect(jsonPath("$.songs.size()", is(2)))
                 .andExpect(jsonPath("$.songs[0].artist").value("artist"))
                 .andExpect(jsonPath("$.songs[1].artist").value("artist"))
                 .andExpect(jsonPath("$.version").value(notNullValue()))
@@ -141,7 +142,7 @@ public class SongControllerTest {
     }
 
     @Test
-    void shouldReturnTracksByExplicit() throws Exception{
+    void shouldReturnTracksByExplicit() throws Exception {
         Song s = new Song(1, "trackid", "track", "artist", "album", 1000,
                 50, 1, "lyrics", 0.1f, 0.1f, 1f, 0.1f,
                 1.0f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f, 0.1f);
@@ -151,13 +152,13 @@ public class SongControllerTest {
         Song s2 = new Song(2, "trackid2", "track2", "artist", "album2", 100,
                 80, 0, "lyrics", 0.2f, 0.2f, 2f, 0.2f,
                 2.0f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f, 0.2f);
-        List<Song> songs = List.of(s,s1,s2);
+        List<Song> songs = List.of(s, s1, s2);
 
         given(songsRepository.findAll()).willReturn(songs);
 
-        this.mockMvc.perform(get("/songs").param("explicit","1"))
+        this.mockMvc.perform(get("/songs").param("explicit", "1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.songs.size()",is(2)))
+                .andExpect(jsonPath("$.songs.size()", is(2)))
                 .andExpect(jsonPath("$.songs[0].explicit").value(1))
                 .andExpect(jsonPath("$.songs[1].explicit").value(1))
                 .andExpect(jsonPath("$.version").value(notNullValue()))

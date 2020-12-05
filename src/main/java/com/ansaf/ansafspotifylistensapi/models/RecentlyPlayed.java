@@ -1,5 +1,7 @@
 package com.ansaf.ansafspotifylistensapi.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,19 +15,24 @@ public class RecentlyPlayed implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(notes = "Spotify Track ID")
     @Column(name = "spotify_track_id")
     private String spotifyTrackId;
 
+    @ApiModelProperty(notes = "Artist")
     @Column(name = "artist", nullable = false)
     private String artist;
 
+    @ApiModelProperty(notes = "Album name")
     @Column(name = "album", nullable = false)
     private String album;
 
+    @ApiModelProperty(notes = "Track name")
     @Column(name = "track", nullable = false)
     private String track;
 
     @Id
+    @ApiModelProperty(notes = "Time played at in YYYY-MM-DD HH:MM:SS")
     @Column(name = "played_at", nullable = false)
     private Timestamp playedAt;
 

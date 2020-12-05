@@ -1,13 +1,20 @@
 package com.ansaf.ansafspotifylistensapi.models;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 import java.util.List;
 
 public class RecentlyPlayedResponse implements Serializable {
+    @ApiModelProperty(notes = "List of songs")
     private List<RecentlyPlayed> songs;
+    @ApiModelProperty(notes = "Version of API")
     private String version;
+    @ApiModelProperty(notes = "URL that was called")
     private String url;
+    @ApiModelProperty(notes = "After Date")
     private String date;
+    @ApiModelProperty(notes = "Total number of songs")
     private int total;
 
     public RecentlyPlayedResponse(List<RecentlyPlayed> songs, String version, String url, String date, int total) {

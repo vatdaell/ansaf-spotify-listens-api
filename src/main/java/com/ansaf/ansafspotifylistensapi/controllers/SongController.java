@@ -17,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "/songs")
+@RequestMapping(path = "api/songs")
 @Api(value = "songs", tags = "Songs", description = "Operations pertaining to accessing songs from the library")
 public class SongController {
 

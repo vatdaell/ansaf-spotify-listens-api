@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/recently-played")
+@RequestMapping(path = "api/recently-played")
 @Api(value = "Recently Played", tags = "Recently Played", description = "Operations pertaining to accessing " +
         "recently played music")
 public class RecentlyPlayedController {
